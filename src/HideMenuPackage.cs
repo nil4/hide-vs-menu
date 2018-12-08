@@ -74,14 +74,14 @@ namespace HideMenu
             {
                 if (AutomationProperties.GetAutomationId(item) != "MenuBar") continue;
             
-                FrameworkElement frameworkElement = item;
-                DependencyObject visualOrLogicalParent = item.GetVisualOrLogicalParent();
+                FrameworkElement candidate = item;
+                DependencyObject parent = item.GetVisualOrLogicalParent();
             
-                if (visualOrLogicalParent != null) 
-                    frameworkElement = visualOrLogicalParent.GetVisualOrLogicalParent() as DockPanel ?? frameworkElement;
+                if (parent != null) 
+                    candidate = parent.GetVisualOrLogicalParent() as DockPanel ?? candidate;
 
                 foundMenuContainer = true;
-                MenuContainer = frameworkElement;
+                MenuContainer = candidate;
             }
 
             if (foundMenuContainer) _mainWindow.LayoutUpdated -= LayoutUpdated;
